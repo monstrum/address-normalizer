@@ -3,6 +3,7 @@ namespace AddressNormalizer\Normalizer;
 
 use AddressNormalizer\Model\Address;
 use AddressNormalizer\Model\AddressInterface;
+use AddressNormalizer\Model\AddressObjectInterface;
 use AddressNormalizer\Type\Base;
 use AddressNormalizer\Utils\Normalizer;
 
@@ -36,7 +37,7 @@ class AddressStreetNormalizer implements AddressStreetNormalizerInterface, Norma
     }
 
     /**
-     * @param Base $normalizer
+     * @inheritDoc
      */
     public function setNormalizer(Base $normalizer)
     {
@@ -56,7 +57,7 @@ class AddressStreetNormalizer implements AddressStreetNormalizerInterface, Norma
                 ->setAddressLocality($normalizer->normalize($object->getAddressLocality()))
                 ->setAddressRegion($normalizer->normalize($object->getAddressRegion()))
                 ->getAddressCountry($normalizer->normalize($object->getAddressCountry()));
-        } elseif ($object instanceof Address) {
+        } elseif ($object instanceof Address || $object instanceof AddressObjectInterface) {
             $object->streetAddress = $normalizer->normalize($object->streetAddress);
             $object->houseNumber = $normalizer->normalize($object->houseNumber);
             $object->postalCode = $normalizer->normalize($object->postalCode);

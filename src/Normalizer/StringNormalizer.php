@@ -21,17 +21,20 @@ class StringNormalizer implements NormalizerInterface
     /**
      * AddressStreetNormalizer constructor.
      * @param $normalizerClass
+     * @param null $util
      */
-    public function __construct($normalizerClass, $util)
+    public function __construct($normalizerClass, $util = null)
     {
         $this->className = $normalizerClass;
         if ($util) {
             $this->engine = $util;
+        } else {
+            $this->engine = new Normalizer(new $normalizerClass());
         }
     }
 
     /**
-     * @param Base $normalizer
+     * @inheritDoc
      */
     public function setNormalizer(Base $normalizer)
     {
@@ -39,7 +42,7 @@ class StringNormalizer implements NormalizerInterface
     }
 
     /**
-     * @param $object
+     * @inheritDoc
      */
     public function normalize($object)
     {
