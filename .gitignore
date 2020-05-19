@@ -1,0 +1,7 @@
+bin
+vendor
+data/build
+.idea/*
+cache.properties
+**/*.DS_Store
+composer.lock
